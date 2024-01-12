@@ -1,12 +1,12 @@
 #EXTM3U
-#EXTINF:-1 ,CCTV16
-http://111.29.9.37:6610/000000001000/5000000008000023254/index.m3u8?stbId=3&livemode=1&IASHttpSessionId=OTT2197120221119175523009763&channel-id=bestzb&Contentid=5000000008000023254
+#EXTINF:-1 ,纯享4k
+https://epg.pw/stream/b3308fab36d70257c4f8035b4d5fdf935be5aa7d894a1735f370ca3fb5368850.m3u8
+#EXTINF:-1 ,纯享4k备用
+https://epg.pw/stream/6c8d76f2b98de6934fa07b46c9da8e06fe83a1a1c4301ab3af13c547d419acfb.m3u8
 #EXTINF:-1 ,CCTV-7
 https://node1.olelive.com:6443/live/CCTV7HD/hls.m3u8
-#EXTINF:-1 ,CCTV-风云足球
-http://60.10.167.88:808/hls/55/index.m3u8
-#EXTINF:-1 ,CCTV-怀旧剧场
-http://60.10.167.88:808/hls/56/index.m3u8
+#EXTINF:-1 ,CCTV4K
+http://hrare.gnway.cc/tv/ysp.php?id=cctv4k
 #EXTINF:-1 ,CCTV-卫生健康
 http://125.39.177.227/bkhlsliveali-cdn.ysp.cctv.cn/ysp/2012513503.m3u8
 #EXTINF:-1 ,安徽导视
