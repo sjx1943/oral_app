@@ -1,7 +1,7 @@
 #EXTM3U
 #EXTINF:-1 ,cctv1HD
 https://node1.olelive.com:6443/live/CCTV1HD/hls.m3u8
-#EXTINF:-1 ,cctv13新闻
+#EXTINF:-1 ,cctv13news
 https://live-play.cctvnews.cctv.com/cctv/merge_cctv13.m3u8
 #EXTINF:-1 ,CCTV-7
 https://node1.olelive.com:6443/live/CCTV7HD/hls.m3u8
