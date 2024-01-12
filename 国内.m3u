@@ -8,7 +8,7 @@ https://node1.olelive.com:6443/live/CCTV7HD/hls.m3u8
 #EXTINF:-1 ,CCTV5HD
 https://node1.olelive.com:6443/live/CCTV5HD/hls.m3u8
 #EXTINF:-1 ,湖南卫视
-http://[2409:8087:7000:20:1000::22]:6060/yinhe/2/ch00000090990000001339/index.m3u8?virtualDomain=yinhe.live_hls.zte.com
+http://111.40.196.30:443/PLTV/88888888/224/3221225554/1.m3u8
 #EXTINF:-1 ,老电影
 https://bp-caster.bestv.com.cn/934/3/video.m3u8
 
