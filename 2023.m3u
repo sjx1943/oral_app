@@ -1,8 +1,8 @@
 #EXTM3U
 #EXTINF:-1 ,cctv1HD
 https://node1.olelive.com:6443/live/CCTV1HD/hls.m3u8
-#EXTINF:-1 ,纯享4k备用
-https://epg.pw/stream/6c8d76f2b98de6934fa07b46c9da8e06fe83a1a1c4301ab3af13c547d419acfb.m3u8
+#EXTINF:-1 ,cctv13新闻
+https://live-play.cctvnews.cctv.com/cctv/merge_cctv13.m3u8
 #EXTINF:-1 ,CCTV-7
 https://node1.olelive.com:6443/live/CCTV7HD/hls.m3u8
 #EXTINF:-1 ,CCTV4K
