@@ -8,7 +8,7 @@ https://node1.olelive.com:6443/live/CCTV7HD/hls.m3u8
 #EXTINF:-1 ,CCTV5HD
 https://node1.olelive.com:6443/live/CCTV5HD/hls.m3u8
 #EXTINF:-1 ,湖南卫视
-http://111.40.196.30:443/PLTV/88888888/224/3221225554/1.m3u8
+https://iptv.luas.edu.cn/liverespath/9b1ccba5a2c611bb5d7c96243695572090cca5fd/3777bfb47d-0-0-654e705fbb80feea4c6f5105072a6d33/index.m3u8
 #EXTINF:-1 ,老电影
 https://bp-caster.bestv.com.cn/934/3/video.m3u8
 
