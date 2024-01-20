@@ -13,9 +13,9 @@ https://iptv.luas.edu.cn/liverespath/9b1ccba5a2c611bb5d7c96243695572090cca5fd/37
 https://bp-caster.bestv.com.cn/934/3/video.m3u8
 #EXTINF:-1 ,TVB翡翠台
 https://edge6a.v2h-cdn.com/jade/jade.stream/chunklist.m3u8
+#EXTINF:-1 ,浙江卫视
+https://iptv.luas.edu.cn/liverespath/f650ba03bb4883fe67a1fb7c193a00a4c0c93881/a2d2162784-0-0-56b13eabd03cd0ff33e9bc019e1fb073/index.m3u8
 
-#EXTINF:-1 ,宝坻一套
-https://hb2stream1.baoxinwen.com/d6387fc7a8836e78/6385068498053235715_1597997122.m3u8?auth_key=1893456000-0-0-93ea48b07ddd03f4904079b7659e81a4
 #EXTINF:-1 ,宝兴综合
 http://flv.drs.tv.yatv.tv:8080/channellive/baoxingxian.flv?zsicd
 #EXTINF:-1 ,宝兴综合频道
