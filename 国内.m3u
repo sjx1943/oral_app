@@ -9,8 +9,8 @@ http://shijiaqiang.3322.org:808/hls/1/index.m3u8
 https://node1.olelive.com:6443/live/CCTV5HD/hls.m3u8
 #EXTINF:-1 ,辽宁卫视
 http://60.213.92.38:9901/tsfile/live/0121_1.m3u8
-#EXTINF:-1 ,老电影
-https://bp-caster.bestv.com.cn/934/3/video.m3u8
+#EXTINF:-1 ,辽宁卫视1
+http://113.236.30.186:9901/tsfile/live/1165_1.m3u8
 #EXTINF:-1 ,TVB翡翠台
 https://edge6a.v2h-cdn.com/jade/jade.stream/chunklist.m3u8
 #EXTINF:-1 ,浙江卫视
