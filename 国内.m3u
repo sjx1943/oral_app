@@ -3,12 +3,12 @@
 https://node1.olelive.com:6443/live/CCTV1HD/hls.m3u8
 #EXTINF:-1 ,cctv13新闻
 https://live-play.cctvnews.cctv.com/cctv/merge_cctv13.m3u8
-#EXTINF:-1 ,CCTV-7
-https://node1.olelive.com:6443/live/CCTV7HD/hls.m3u8
+#EXTINF:-1 ,CCTV-1综合
+http://shijiaqiang.3322.org:808/hls/1/index.m3u8
 #EXTINF:-1 ,CCTV5HD
 https://node1.olelive.com:6443/live/CCTV5HD/hls.m3u8
-#EXTINF:-1 ,湖南卫视
-https://iptv.luas.edu.cn/liverespath/9b1ccba5a2c611bb5d7c96243695572090cca5fd/3777bfb47d-0-0-654e705fbb80feea4c6f5105072a6d33/index.m3u8
+#EXTINF:-1 ,辽宁卫视
+http://121.60.106.30:8888/tsfile/live/0121_1.m3u8
 #EXTINF:-1 ,老电影
 https://bp-caster.bestv.com.cn/934/3/video.m3u8
 #EXTINF:-1 ,TVB翡翠台
@@ -16,8 +16,8 @@ https://edge6a.v2h-cdn.com/jade/jade.stream/chunklist.m3u8
 #EXTINF:-1 ,浙江卫视
 https://iptv.luas.edu.cn/liverespath/f650ba03bb4883fe67a1fb7c193a00a4c0c93881/a2d2162784-0-0-56b13eabd03cd0ff33e9bc019e1fb073/index.m3u8
 
-#EXTINF:-1 ,宝兴综合
-http://flv.drs.tv.yatv.tv:8080/channellive/baoxingxian.flv?zsicd
+#EXTINF:-1 ,CCTV2
+https://node1.olelive.com:6443/live/CCTV2HD/hls.m3u8
 #EXTINF:-1 ,宝兴综合频道
 http://flv.drs.tv.yatv.tv:8080/channellive/baoxingxian.flv
 #EXTINF:-1 ,保靖时政频道
