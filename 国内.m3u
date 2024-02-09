@@ -8,7 +8,7 @@ http://shijiaqiang.3322.org:808/hls/1/index.m3u8
 #EXTINF:-1 ,CCTV5HD
 https://node1.olelive.com:6443/live/CCTV5HD/hls.m3u8
 #EXTINF:-1 ,辽宁卫视
-http://121.60.106.30:8888/tsfile/live/0121_1.m3u8
+http://60.213.92.38:9901/tsfile/live/0121_1.m3u8
 #EXTINF:-1 ,老电影
 https://bp-caster.bestv.com.cn/934/3/video.m3u8
 #EXTINF:-1 ,TVB翡翠台
