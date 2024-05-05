@@ -1,18 +1,18 @@
 #EXTM3U
 #EXTINF:-1 ,cctv1HD
 https://node1.olelive.com:6443/live/CCTV1HD/hls.m3u8
-#EXTINF:-1 ,cctv13新闻
-https://live-play.cctvnews.cctv.com/cctv/merge_cctv13.m3u8
+#EXTINF:-1 ,CCTV13HD
+https://node1.olelive.com:6443/live/CCTV13HD/hls.m3u8
 #EXTINF:-1 ,CCTV-1综合
 http://shijiaqiang.3322.org:808/hls/1/index.m3u8
 #EXTINF:-1 ,CCTV5HD
 https://node1.olelive.com:6443/live/CCTV5HD/hls.m3u8
 #EXTINF:-1 ,辽宁卫视
 http://60.213.92.38:9901/tsfile/live/0121_1.m3u8
-#EXTINF:-1 ,辽宁卫视1
-http://113.236.30.186:9901/tsfile/live/1165_1.m3u8
-#EXTINF:-1 ,TVB翡翠台
-https://edge6a.v2h-cdn.com/jade/jade.stream/chunklist.m3u8
+#EXTINF:-1 ,东方卫视
+http://tvbox.netsite.cc/proxy/609485212/609485212.m3u8
+#EXTINF:-1 ,劲爆体育
+http://223.109.210.41/1301-tx.otvstream.otvcloud.com/otv/skcc/live/channel43038/index.m3u8
 #EXTINF:-1 ,浙江卫视
 https://iptv.luas.edu.cn/liverespath/f650ba03bb4883fe67a1fb7c193a00a4c0c93881/a2d2162784-0-0-56b13eabd03cd0ff33e9bc019e1fb073/index.m3u8
 
