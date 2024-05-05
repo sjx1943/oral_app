@@ -1,10 +1,12 @@
 #EXTM3U
-#EXTINF:-1 ,日テレNEWS24
-https://n24-cdn-live.ntv.co.jp/ch01/index.m3u8
-#EXTINF:-1,BBCnews
-http://198.16.100.90:8278/bbc1_antik/playlist.m3u8?tid=MF5F6677034466770344&ct=19225&tsum=7620e8a88546352c525938a2dee63a56
-#EXTINF:-1,东森新闻
-http://198.16.100.90:8278/ettvnews/playlist.m3u8?tid=MAEA2793211727932117&ct=19225&tsum=151345e2ab6bc0c89ac85598f1988cd3 
+#EXTINF:-1 ,BBC news
+https://rakuten-euronews-10-be.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 ,NBA CA
+https://z88.ubtvfans.com/live/rx4/1282/5528506edf31d6964f6855781bf66bd4/index.m3u8
+#EXTINF:-1 ,abc news
+https://abcnews-streams.akamaized.net/hls/live/2023560/abcnews1/master.m3u8
+#EXTINF:-1 ,ESPN2 ZE
+https://eyeonesports.com/ES2RA-628g.m3u8
 
 #EXTINF:-1,tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://epg.112114.xyz/logo/CCTV1.png" group-title="央视",CCTV1 8M
 https://live.v1.mk/api/bestv.php?id=cctv1hd8m/8000000
