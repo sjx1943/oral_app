@@ -1,0 +1,60 @@
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE 配置
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/
+
+# 日志文件
+*.log
+logs
+
+# 临时文件
+*.tmp
+*.temp
+.cache
+
+# Docker相关
+.docker/
+.dockerignore
+*.dockerfile
+
+# 环境变量
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 包管理
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 构建输出
+build/
+dist/
+out/
+
+# 系统备份文件
+*.bak
+*.backup
+
+# 其他
+*.pid
+*.seed
+*.pid.lock
+
+# 特定于项目的忽略
+# 已经在服务目录下的.gitignore处理了node_modules等
