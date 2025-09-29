@@ -1,7 +1,7 @@
 # Oral AI 实时口语练习应用 - 项目记忆
 
 ## 项目地址
-- git@github.com:sjx1943/oral_app.git
+- (待补充)
 
 ## 项目概述
 打造一款可以24小时在线的AI口语陪练应用。应用的核心定位是“面向未来的私人语言导师”，专注于为用户提供“深度个性化”和“实时反馈”的练习体验。项目旨在通过融合“人机协同”的理念，在Duolingo和Babbel等主流应用之间，开拓一个高价值的细分市场。
@@ -66,10 +66,7 @@ oral_app/
 - **流式处理优先 (Streaming First)**: 客户端通过 `AudioWorklet` 等技术实时采集音频PCM数据流，并通过WSS/WebRTC协议实时传输至后端，彻底抛弃“录音-上传-处理-返回”的传统模式，实现端到端的流式处理，将交互延迟降至秒级。
 - **服务化与解耦 (Service-Oriented & Decoupled)**: 后端拆分为用户、对话、历史分析、媒体处理等多个独立的微服务。各服务可独立迭代和扩展，从而实现精细化的成本控制。
 - **数据驱动个性化 (Data-Driven Personalization)**: 引入数据库和数据分析管道，为每个用户建立动态画像（如学习进度、目标、常犯错误），为LLM提供上下文，使其回应更具个性化和针对性。
-- **AI引擎抽象化 (Abstracted AI Engine)**: 将AI能力封装成一个具有统一接口的“AI引擎”层。该层将支持两种可插拔的后端实现策略：
-    1.  **三阶段管线式引擎 (Pipelined Engine)**: 维持原有的设计，按顺序编排独立的流式ASR、核心LLM和流式TTS服务。此方案成熟稳定，允许对管线中的每个环节进行精细优化或替换。
-    2.  **统一多模态引擎 (Unified Multimodal Engine)**: 新增的方案，直接与一个端到端的多模态大模型（例如通过vLLM私有化部署的Qwen3-Omni系列模型）进行交互。客户端的音频流直接传入该模型，模型处理后直接返回音频流。此方案有望极大降低端到端延迟，简化服务链路。
-    通过这种抽象，系统未来可以根据成本、性能需求和技术演进，灵活地为不同用户或场景切换或组合使用最合适的AI引擎。
+- **AI引擎抽象化 (Abstracted AI Engine)**: 将ASR、LLM、TTS等AI能力封装成独立的“AI引擎”层，不与任何单一供应商绑定，未来可以根据成本和性能灵活切换或组合使用不同的AI服务。
 - **提示词工程模块 (Prompt Engineering Module)**: 在AI引擎内部，建立一个专门的提示词管理模块。该模块负责动态构建发送给LLM的最终Prompt。它会将定义AI导师角色的**基础指令**（Base Prompt）与用户的**动态上下文**（如个人学习目标、历史对话摘要、常犯错误等）相结合，确保AI的每一次回应都具有高度的个性化和教学相关性。
 
 ### 2. 核心实时对话流程
@@ -90,14 +87,14 @@ oral_app/
 
 ## 开发与运行
 - **本地环境启动**:
-  - 运行 `docker-compose up -d` 来启动项目所需的 PostgreSQL, MongoDB, Redis和 user-service 服务。
+    - 运行 `docker-compose up -d` 来启动项目所需的 PostgreSQL, MongoDB, Redis和 user-service 服务。
 
 ## 关键环境变量与配置
 (待补充)
 
 ## Gemini Added Memories
 - 项目已配置专属的今日开发工作收尾命令 `finish_today`，其具体操作如下: "作为AI助手，我的目标是完成今日的收尾工作。我将执行以下4项操作：
-\n1. Update the development plan in @docs/TODO.md using the mcp-tasks tool.
-\n2. Append a summary of the day's work to the development log at @docs/development_log.md if exists.
-\n3. Update the GEMINI.md project memory file to reflect the current project state, 不必添加开发日志，不能改变Gemini Added Memories的内容及格式.
-\n4. Commit and push all changes to the origin/master branch of the remote repository using the commit message ser {{今日日期}}."
+  \n1. Update the development plan in @docs/TODO.md using the mcp-tasks tool.
+  \n2. Append a summary of the day's work to the development log at @docs/development_log.md if exists.
+  \n3. Update the GEMINI.md project memory file to reflect the current project state, don't change the ##Gemini Added Memories.
+  \n4. Commit and push all changes to the origin/master branch of the remote repository using the commit message ser {{今日日期}}."

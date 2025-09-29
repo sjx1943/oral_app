@@ -9,7 +9,6 @@
 ## Backlog
 
 - [ ] **Phase 1: Foundation & Core Services**
-- [ ] 4. [Backend] Setup API Gateway: Configure routing for User Service.
 - [ ] 5. [Backend] Create Real-time Comms Layer: Setup WebSocket server.
 - [ ] **Phase 2: AI Integration & Core Logic**
 - [ ] 6. [Backend] Create AI Service Layer (AI Engine): Abstract ASR/LLM/TTS interfaces.
@@ -33,6 +32,8 @@
 
 ## Done
 
+- [x] 4. [Backend] Setup API Gateway: Configure routing for User Service.
+- [x] [Architecture] Redesign AI Engine to support both pipelined (ASR+LLM+TTS) and unified multimodal models.
 - [x] 1. [Data Persistence] Setup PostgreSQL/MongoDB and Redis instances.
 - [x] 2. [Data Persistence] Define database schemas for User, Conversation, etc.
 - [x] 3. [Backend] Create User Service: Implement user registration, login, JWT auth.

@@ -28,3 +28,18 @@
 *   **Planning & Documentation:**
     *   Updated the project `TODO.md` to mark the user service implementation as complete.
     *   Added new backlog tasks for comprehensive API endpoint testing and for updating the `schema.md` documentation to match the current database structure.
+
+## 2025-09-29
+
+*   **Architecture Upgrade:**
+    *   Redesigned the AI Engine's architecture to support a flexible, hybrid model. The system can now accommodate both the traditional, pipelined approach (ASR -> LLM -> TTS) and a unified, end-to-end multimodal model (e.g., Qwen3-Omni).
+    *   Updated `GEMINI.md` and `docs/TODO.md` to reflect this key architectural decision.
+*   **API Gateway Implementation:**
+    *   Successfully implemented and containerized an API Gateway using Nginx.
+    *   Configured the gateway to route all incoming traffic from `/api/users` to the `user-service`.
+*   **Troubleshooting & Verification:**
+    *   Resolved a host port conflict by remapping the gateway's external port from `80` to `8080`.
+    *   Fine-tuned Nginx `location` and `proxy_pass` directives to ensure correct URL path rewriting.
+    *   Verified the end-to-end request flow (`curl -> api-gateway -> user-service`) is fully functional.
+*   **Project Management:**
+    *   Marked the API Gateway setup task as complete in the project's `TODO.md`.
