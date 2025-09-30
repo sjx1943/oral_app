@@ -32,6 +32,10 @@ oral_app/
 ├── client/              # Frontend application (React/Mobile)
 ├── api-gateway/         # API Gateway configuration
 ├── services/            # Backend microservices
+│   ├── comms-service/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   └── src/index.js
 │   ├── user-service/
 │   │   └── docs/
 │   │       └── schema.md  # User service database schema
@@ -98,6 +102,6 @@ oral_app/
 ## Gemini Added Memories
 - 项目已配置专属的今日开发工作收尾命令 `finish_today`，其具体操作如下: "作为AI助手，我的目标是完成今日的收尾工作。我将执行以下4项操作：
 \n1. Update the development plan in @docs/TODO.md using the mcp-tasks tool.
-\n2. Append a summary of the day's work to the development log at @docs/development_log.md if exists.
-\n3. Update the GEMINI.md project memory file to reflect the current project state, 不必添加开发日志，不能改变Gemini Added Memories的内容及格式.
+\n2. Update the GEMINI.md project memory file to reflect the current project state, 注意**不能改变Gemini Added Memories的内容及格式.
+\n3. Append a summary of the day's work to the development log at @docs/development_log.md if exists.
 \n4. Commit and push all changes to the origin/master branch of the remote repository using the commit message ser {{今日日期}}."

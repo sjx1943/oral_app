@@ -43,3 +43,17 @@
     *   Verified the end-to-end request flow (`curl -> api-gateway -> user-service`) is fully functional.
 *   **Project Management:**
     *   Marked the API Gateway setup task as complete in the project's `TODO.md`.
+
+## 2025-09-30
+
+*   **Real-time Communication Service:**
+    *   Created and containerized the new `comms-service` to handle WebSocket connections, laying the foundation for real-time interaction.
+    *   Updated `docker-compose.yml` to include the new service and configured the API Gateway to correctly route `/ws/` traffic.
+*   **Intensive Network & Deployment Debugging:**
+    *   Resolved a critical Docker build failure (`EAI_AGAIN`) caused by DNS resolution issues within the build environment. The problem was definitively solved by configuring a fixed DNS for the Docker daemon.
+    *   Conducted extensive end-to-end testing of the WebSocket connection, troubleshooting a series of errors including `404 Not Found`, `ETIMEDOUT`, and `Client network socket disconnected`.
+    *   Successfully identified the root causes, which involved correcting a `depends_on` startup dependency in `docker-compose.yml` and fixing a typo in the external port mapping (28843 vs. 28443).
+*   **Success & Verification:**
+    *   Achieved a successful WebSocket connection from an external server to the `comms-service`, confirming the entire communication path (WSS -> Host Nginx -> API Gateway -> Comms Service) is fully functional.
+*   **Project Management:**
+    *   Marked the final task of Phase 1 as complete in `docs/TODO.md`. The project is now ready to proceed to Phase 2.
