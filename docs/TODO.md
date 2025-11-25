@@ -87,3 +87,5 @@
 - [x] [Docker] Update docker-compose.yml with unified ai-omni-service configuration.
 - [x] [API Gateway] Refactor nginx.conf routing for consolidated AI service endpoints.
 - [x] [Comms Service] Update WebSocket connection URL to point to unified ai-omni-service.
+- [x] [Backend] Fix user profile API 401 error by correcting JWT token field inconsistency (id vs userId) in auth middleware and controller.
+- [x] [Docs] Update GEMINI.md with client containerization configuration and directory structure.

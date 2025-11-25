@@ -191,33 +191,53 @@ class UnifiedAIService {
   }
 
   async handleAudioStream(ws, message) {
-    const { audioBuffer, userId, context = {} } = message;
+    const { audioBuffer, userId, sessionId, context = {} } = message;
     
     try {
       const buffer = Buffer.isBuffer(audioBuffer) 
         ? audioBuffer 
         : Buffer.from(audioBuffer, 'base64');
 
-      const result = await this.aiService.processAudio(buffer, userId, context);
+      const result = await this.aiService.processAudio(buffer, userId, sessionId, context);
       
-      ws.send(JSON.stringify({
-        type: 'audio_response',
-        data: result
-      }));
+      // 1. Send the transcription back
+      if (ws.readyState === ws.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'transcription',
+          text: result.transcript
+        }));
+      }
+
+      // 2. Send the AI's text response back
+      if (ws.readyState === ws.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'ai_response',
+          text: result.response
+        }));
+      }
+      
+      // 3. Synthesize and send the TTS audio
+      const ttsAudioBuffer = await this.aiService.synthesizeSpeech(result.response);
+      if (ws.readyState === ws.OPEN) {
+        ws.send(ttsAudioBuffer, { binary: true });
+      }
+
     } catch (error) {
       console.error('Audio stream processing error:', error);
-      ws.send(JSON.stringify({
-        type: 'error',
-        message: 'Failed to process audio stream'
-      }));
+      if (ws.readyState === ws.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'error',
+          message: 'Failed to process audio stream'
+        }));
+      }
     }
   }
 
   async handleTextMessage(ws, message) {
-    const { text, userId, context = {} } = message;
+    const { text, userId, sessionId, context = {} } = message;
     
     try {
-      const result = await this.aiService.processText(text, userId, context);
+      const result = await this.aiService.processText(text, userId, sessionId, context);
       
       ws.send(JSON.stringify({
         type: 'text_response',

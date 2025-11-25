@@ -250,3 +250,25 @@
     *   **Improved Maintainability**: Unified codebase and configuration
     *   **Enhanced Scalability**: Single service can be scaled independently
     *   **Streamlined Development**: Single codebase for all AI functionality
+
+## 2025-11-25
+
+*   **用户资料API修复与JWT认证优化**:
+    *   **问题诊断**: 发现前端调用`/api/user/profile`返回401错误，经检查确认API路径不匹配问题
+    *   **API路径修正**: 确认前端已使用正确的复数形式`/api/users/profile`，与后端路由配置匹配
+    *   **JWT认证问题定位**: 发现JWT token生成使用`{ id }`字段，而认证中间件和getProfile方法中尝试访问`{ userId }`字段的不一致问题
+    *   **认证中间件修复**: 修改`authMiddleware.js`，将注释和代码中的`userId`改为`id`，确保与JWT token字段一致
+    *   **用户控制器修复**: 修改`userController.js`中的getProfile方法，使用`req.user.id`而非`req.user.userId`
+    *   **服务重启与测试**: 重启user-service后，通过curl测试确认API正常工作，返回用户资料信息
+    *   **前端使用指导**: 确认用户应使用`userAPI.getProfile()`方法而非直接fetch调用，该方法已包含正确的认证头处理
+
+## 2025-11-25
+
+*   **用户资料API修复与JWT认证优化**:
+    *   **问题诊断**: 发现前端调用`/api/user/profile`返回401错误，经检查确认API路径不匹配问题
+    *   **API路径修正**: 确认前端已使用正确的复数形式`/api/users/profile`，与后端路由配置匹配
+    *   **JWT认证问题定位**: 发现JWT token生成使用`{ id }`字段，而认证中间件和getProfile方法中尝试访问`{ userId }`字段的不一致问题
+    *   **认证中间件修复**: 修改`authMiddleware.js`，将注释和代码中的`userId`改为`id`，确保与JWT token字段一致
+    *   **用户控制器修复**: 修改`userController.js`中的getProfile方法，使用`req.user.id`而非`req.user.userId`
+    *   **服务重启与测试**: 重启user-service后，通过curl测试确认API正常工作，返回用户资料信息
+    *   **前端使用指导**: 确认用户应使用`userAPI.getProfile()`方法而非直接fetch调用，该方法已包含正确的认证头处理

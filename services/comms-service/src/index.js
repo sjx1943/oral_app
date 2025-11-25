@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { WebSocketServer, WebSocket } = require('ws');
 const jwt = require('jsonwebtoken');
 const url = require('url');
@@ -8,6 +7,7 @@ const wss = new WebSocketServer({ port: 8080 });
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
   console.error("FATAL ERROR: JWT_SECRET is not defined in the environment variables.");
+  console.error("Available environment variables:", Object.keys(process.env).filter(key => key.includes('JWT')));
   process.exit(1);
 }
 
@@ -38,22 +38,44 @@ wss.on('connection', async function connection(clientWs, req) {
     }
 
     const userId = decoded.id;
-    console.log(`Token verified for user ID: ${userId}`);
+    const sessionId = queryObject.sessionId;
+
+    if (!sessionId) {
+      console.log('Connection rejected: No sessionId provided.');
+      clientWs.close(1008, 'Session ID is required.');
+      return;
+    }
+
+    console.log(`Token verified for user ID: ${userId}, Session ID: ${sessionId}`);
     clientWs.userId = userId;
+    clientWs.sessionId = sessionId;
 
     const aiServiceWs = new WebSocket(AI_SERVICE_URL);
 
     aiServiceWs.on('open', () => {
-      console.log(`Successfully connected to AI Service for user ${userId}`);
+      console.log(`Successfully connected to AI Service for user ${userId} and session ${sessionId}`);
       clientWs.send(JSON.stringify({ type: 'info', message: 'Welcome! Your connection is authenticated and bridged to the AI service.' }));
 
       // NOW that the AI service connection is open, start forwarding messages.
       clientWs.on('message', (message) => {
         // The 'ws' library receives binary data from the browser as a Buffer.
-        // We must explicitly tell the 'send' method to forward it as binary.
+        // We need to wrap this in the JSON format expected by ai-omni-service.
         if (aiServiceWs.readyState === WebSocket.OPEN) {
-          console.log(`Forwarding binary message of size ${message.length} from user ${userId} to AI service.`);
-          aiServiceWs.send(message, { binary: true });
+          if (Buffer.isBuffer(message)) {
+            console.log(`Wrapping binary message of size ${message.length} from user ${userId}, session ${sessionId} into JSON for AI service.`);
+            const messageForAI = JSON.stringify({
+              type: 'audio_stream',
+              userId: userId,
+              sessionId: sessionId, // Include sessionId here
+              audioBuffer: message.toString('base64'), // Encode buffer as base64 string
+              context: {} // Add empty context for now
+            });
+            aiServiceWs.send(messageForAI);
+          } else {
+             // If it's not a buffer, we could assume it's a text message from client
+             // For now, the client only sends audio, so we'll log this.
+             console.log(`Received non-binary message from user ${userId}. Ignoring.`);
+          }
         }
       });
 
