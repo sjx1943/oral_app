@@ -272,3 +272,19 @@
     *   **用户控制器修复**: 修改`userController.js`中的getProfile方法，使用`req.user.id`而非`req.user.userId`
     *   **服务重启与测试**: 重启user-service后，通过curl测试确认API正常工作，返回用户资料信息
     *   **前端使用指导**: 确认用户应使用`userAPI.getProfile()`方法而非直接fetch调用，该方法已包含正确的认证头处理
+
+## 2025-11-27
+
+*   **Database Connection Fix & Verification:**
+    *   **Problem**: Diagnosed `getaddrinfo ENOTFOUND postgres` error in `user-service` logs, indicating a DNS resolution issue.
+    *   **Investigation**:
+        *   Confirmed `user-service` environment variables (`DB_HOST`, `DB_USER`, etc.) were correctly set.
+        *   PostgreSQL container logs showed it was ready for connections, but `user-service` reported "Connection terminated unexpectedly".
+        *   Identified that `docker-compose.yml` was attempting to use environment variables (`${POSTGRES_DB}`) that were not explicitly defined in a project-level `.env` file or the shell environment.
+    *   **Solution**: 
+        *   Created a `.env` file at the project root (`./.env`) with `POSTGRES_DB`, `POSTGRES_USER`, and `POSTGRES_PASSWORD` defined.
+        *   Modified `docker-compose.yml` to explicitly load this root `.env` file for both the `postgres` and `user-service` containers.
+        *   Restarted all Docker containers (`docker compose down && docker compose up -d --build`).
+    *   **Verification**: Executed a custom Node.js script (`check_postgres.js`) inside the `user-service` container, which successfully connected to PostgreSQL and logged "Successfully connected to PostgreSQL".
+    *   **Cleanup**: Removed the temporary `check_postgres.js` script.
+    *   **Outcome**: The database connection issue for the `user-service` has been fully resolved, and the application login should now function correctly.

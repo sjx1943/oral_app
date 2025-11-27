@@ -37,11 +37,8 @@ services:
     image: postgres:14-alpine
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_PORT: 5432 # Explicitly define PostgreSQL port
+    env_file:
+      - ./.env
     volumes:
       - ./services/user-service/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
@@ -80,13 +77,8 @@ services:
     volumes:
       - ./services/user-service/src:/usr/src/app/src
       - ./services/user-service/node_modules:/usr/src/app/node_modules
-    environment:
-      - DB_HOST=postgres
-      - DB_USER=${POSTGRES_USER}
-      - DB_DATABASE=${POSTGRES_DB}
-      - DB_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_PORT=${POSTGRES_PORT}
     env_file:
+      - ./.env
       - ./services/user-service/.env
     depends_on:
       - postgres
