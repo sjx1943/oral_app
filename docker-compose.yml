@@ -23,7 +23,7 @@ services:
     container_name: oral_app_client_app
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
       - ./client/src:/app/src
       - ./client/public:/app/public
@@ -37,6 +37,10 @@ services:
     image: postgres:14-alpine
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_DB=oral_app
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
     env_file:
       - ./.env
     volumes:
@@ -77,6 +81,14 @@ services:
     volumes:
       - ./services/user-service/src:/usr/src/app/src
       - ./services/user-service/node_modules:/usr/src/app/node_modules
+    environment:
+      - PORT=3000
+      - DB_HOST=postgres
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_DATABASE=oral_app
+      - DB_PORT=5432
+      - JWT_SECRET=your_jwt_secret_key_change_in_production
     env_file:
       - ./.env
       - ./services/user-service/.env
@@ -91,6 +103,8 @@ services:
     restart: always
     env_file:
       - ./services/comms-service/.env
+    depends_on:
+      - redis
     networks:
       - oral_app_net
 
@@ -101,9 +115,11 @@ services:
     ports:
       - "8082:8082"
       - "8081:8081"
-    depends_on:
-      - postgres
-      - redis
+    volumes:
+      - ./services/ai-omni-service/models:/usr/src/app/models
+      - ./services/ai-omni-service/.env:/app/.env
+    env_file:
+      - ./services/ai-omni-service/.env
     networks:
       - oral_app_net
 

@@ -188,6 +188,7 @@
 
 *   **Next Steps Identified:** The current focus will shift to implementing full real-time TTS audio streaming and developing a robust session management system.
 
+
 ## 2025-11-06
 
 *   **Real-time ASR & TTS Pipeline Debugging and Refinement:**
@@ -262,17 +263,6 @@
     *   **服务重启与测试**: 重启user-service后，通过curl测试确认API正常工作，返回用户资料信息
     *   **前端使用指导**: 确认用户应使用`userAPI.getProfile()`方法而非直接fetch调用，该方法已包含正确的认证头处理
 
-## 2025-11-25
-
-*   **用户资料API修复与JWT认证优化**:
-    *   **问题诊断**: 发现前端调用`/api/user/profile`返回401错误，经检查确认API路径不匹配问题
-    *   **API路径修正**: 确认前端已使用正确的复数形式`/api/users/profile`，与后端路由配置匹配
-    *   **JWT认证问题定位**: 发现JWT token生成使用`{ id }`字段，而认证中间件和getProfile方法中尝试访问`{ userId }`字段的不一致问题
-    *   **认证中间件修复**: 修改`authMiddleware.js`，将注释和代码中的`userId`改为`id`，确保与JWT token字段一致
-    *   **用户控制器修复**: 修改`userController.js`中的getProfile方法，使用`req.user.id`而非`req.user.userId`
-    *   **服务重启与测试**: 重启user-service后，通过curl测试确认API正常工作，返回用户资料信息
-    *   **前端使用指导**: 确认用户应使用`userAPI.getProfile()`方法而非直接fetch调用，该方法已包含正确的认证头处理
-
 ## 2025-11-27
 
 *   **Database Connection Fix & Verification:**
@@ -288,3 +278,47 @@
     *   **Verification**: Executed a custom Node.js script (`check_postgres.js`) inside the `user-service` container, which successfully connected to PostgreSQL and logged "Successfully connected to PostgreSQL".
     *   **Cleanup**: Removed the temporary `check_postgres.js` script.
     *   **Outcome**: The database connection issue for the `user-service` has been fully resolved, and the application login should now function correctly.
+*   **Session Management & Qwen3-Omni Integration:**
+    *   **Session Management**: 
+        *   Integrated Redis into `comms-service` for centralized session state management.
+        *   Implemented logic to create session records in Redis with expiration times upon user WebSocket connection.
+        *   Added cleanup mechanism to remove session data from Redis upon client disconnection.
+        *   Updated `docker-compose.yml` to ensure `comms-service` depends on `redis`.
+    *   **Qwen3-Omni Integration**:
+        *   Modified `ai-omni-service/src/index.js` to replace `MockAIService` with `Qwen3OmniService`.
+        *   Configured `ai-omni-service` to use the real Qwen3-Omni engine for ASR, LLM, and TTS functionalities, replacing the mock implementation.
+    *   **Verification**: Docker containers restarted to apply new session management logic and Qwen3-Omni integration. End-to-end testing for Qwen3-Omni is the next step.
+## 2025-12-09
+
+*   **Qwen3-Omni Integration Progress:**
+    *   **Service Architecture**: Successfully consolidated ai-service and omni-service into unified ai-omni-service with proper WebSocket and HTTP endpoints
+    *   **Qwen3-Omni Client**: Implemented Qwen3OmniClient with DashScope SDK integration and fallback to local model loading
+    *   **Real-time Communication**: Established WebSocket streaming pipeline with proper audio/text message handling
+    *   **Conversation Management**: Implemented conversation history tracking and user context management
+    *   **Health Monitoring**: Added comprehensive health check endpoints showing service status and conversation history
+    *   **Testing**: Conducted end-to-end conversation tests, identified issues with DashScope SDK availability (package not accessible)
+    *   **Current Status**: Service running on port 8082 with health check on 8081, maintaining 4 conversation history entries but falling back to mock mode due to SDK access issues
+
+## 2025-12-10
+
+*   **AI Service Python Migration & Functionality Fixes (ai-omni-service):**
+    *   **Architecture Migration**: Successfully refactored `ai-omni-service` from Node.js to Python using FastAPI and Uvicorn.
+    *   **Dockerization & Dependencies**: Updated `Dockerfile` to `python:3.10-slim` base image, addressing `onnxruntime-node` glibc dependency issues. Cleaned up obsolete Node.js files (`package.json`, `src/`). Created `requirements.txt` and `app/` directory structure.
+    *   **DashScope SDK Integration**: Integrated `dashscope` Python SDK (`OmniRealtimeConversation`).
+    *   **Environment Variable Resolution**: Diagnosed and fixed the `TypeError: can only concatenate str (not "NoneType") to str` caused by `QWEN3_OMNI_API_KEY` not being correctly passed to the Docker container. Corrected `docker-compose.yml` to ensure proper environment variable loading.
+    *   **API/WebSocket Protocol Alignment**: Resolved port mismatch between `user-service` and Nginx API Gateway. Fixed WebSocket proxying in `api-gateway/nginx.conf` by correcting `proxy_pass` paths and consolidating CORS headers to the `http` block.
+    *   **SDK API Call Fixes**:
+        *   Resolved `AttributeError: 'OmniRealtimeConversation' object has no attribute 'send_text'` by replacing `send_text` with `update_session` for System Prompt injection.
+        *   Fixed `TypeError: OmniRealtimeConversation.update_session() missing 1 required positional argument: 'output_modalities'` and `NameError: name 'MultiModality' is not defined` by correctly importing `MultiModality` and providing required arguments.
+        *   **Crucially, resolved the "答非所问" (off-topic replies) issue**: Discovered that DashScope's `OmniRealtimeConversation` was not correctly processing `conversation.item.create` for user text input in a way that influenced subsequent responses. Implemented a workaround by passing user input directly as `instructions` to `conversation.create_response()`. This ensures the AI model immediately receives and responds to the user's current input.
+    *   **Real-time Event Mapping**: Corrected `on_event` logic to accurately map DashScope's `response.audio.delta` (audio) and `response.audio_transcript.delta` (text) events to the client's expected `audio_response` and `text_response` formats.
+    *   **Robustness**: Implemented automatic reconnection logic for DashScope connection loss (`websocket.WebSocketConnectionClosedException`, `BrokenPipeError`).
+
+*   **Prompt Engineering Enhancement**:
+    *   Refined `PromptManager` module to generate a dynamic System Prompt, ensuring the AI model adheres to the "Oral Language Tutor" persona and contextually relevant responses. Removed misleading "initialization" directives from the prompt template to prevent repetitive greetings.
+
+*   **Testing Tools & Verification**:
+    *   Created and refined `test_client.py` Python script to simulate multi-turn WebSocket conversations, including sending text messages, receiving streaming text and audio, and saving audio to `.pcm` files. This script was instrumental in diagnosing and verifying fixes throughout the day.
+    *   Conducted end-to-end `wscat` and `test_client.py` tests to validate all fixes, confirming successful connection, message exchange, and context-aware AI responses.
+
+*   **Current Status**: All core `ai-omni-service` functionalities are verified: reliable WebSocket communication, context-aware multi-turn conversations with DashScope Qwen3-Omni, streaming audio, and robust error handling (reconnection). The service is ready for integration with the frontend application.

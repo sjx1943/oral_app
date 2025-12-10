@@ -14,6 +14,7 @@ const generateToken = (id) => {
 };
 
 exports.register = async (req, res) => {
+  console.log('Register endpoint hit');
   const { username, name, email, password } = req.body;
 
   try {

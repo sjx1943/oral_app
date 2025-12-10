@@ -1,27 +1,21 @@
 # Tasks - TODO
 
 ## In Progress
-
-- [ ] [AI Engine] Integrate and refine the detailed 'Ava' persona and instructional strategies into the LLM prompt via `prompt/manager.js`.
-
-## Phase 4: Qwen3-Omni 集成与高级功能开发
-
-### 4.1 Qwen3-Omni 实时集成 (当前重点)
-- [ ] [AI Engine] 实现 Qwen3-Omni 的实时 ASR、LLM 和 TTS 功能
-- [ ] [AI Engine] 实现 Qwen3-Omni 的多语言语音识别支持
-- [ ] [AI Engine] 处理来自 `comms-service` 的实时音频流并转发到 Qwen3-Omni 服务
-- [ ] [AI Engine] 在 omni-service 中替换模拟模式为真实的 Qwen3-Omni API 调用
-- [ ] [Testing] 使用真实的 Qwen3-Omni 引擎进行端到端测试（ModelScope 魔搭社区）
+### Phase 4.1: Qwen3-Omni Advanced Integration & Testing
+- [ ] [Testing] 在 test_client.py 调试脚本中集成 PCM 音频输入和实时 TTS 输出功能，实现真实的音频输入输出模拟。
+- [ ] [Frontend] 将前端 React 应用对接新的 Python ai-omni-service WebSocket 协议。
+- [ ] [AI Engine] 优化音频流处理，处理来自前端的实时 PCM 流并转发给 DashScope。
 
 ### 4.2 前端优化与用户体验
+- [x] [Frontend] 实现对话历史管理界面
+- [x] [Frontend] 优化音频录制和播放的用户体验
 - [ ] [Frontend] 忽略对话历史中的空消息
-- [ ] [Frontend] 实现对话历史管理界面
-- [ ] [Frontend] 优化音频录制和播放的用户体验
 - [ ] [Frontend] 添加多语言界面支持
 - [ ] [Frontend] 实现响应式设计适配移动端
 
 ### 4.3 后端服务完善
-- [ ] [Backend] 完成用户服务 API 端点测试（登录、更新等）
+- [x] [Backend] 完成用户服务 API 端点测试（登录、更新等）
+- [x] [Backend] 添加会话管理和权限控制
 - [ ] [Backend] 创建历史与分析服务：实现对话的异步存储
 - [ ] [Backend] 创建媒体处理服务：实现音频流转码和 S3/OSS 存储
 - [ ] [Backend] 实现用户个性化设置管理
@@ -89,3 +83,14 @@
 - [x] [Comms Service] Update WebSocket connection URL to point to unified ai-omni-service.
 - [x] [Backend] Fix user profile API 401 error by correcting JWT token field inconsistency (id vs userId) in auth middleware and controller.
 - [x] [Docs] Update GEMINI.md with client containerization configuration and directory structure.
+- [x] **Phase 4: Qwen3-Omni Integration & Python Migration**
+- [x] [Architecture] Migrate `ai-omni-service` from Node.js to Python (FastAPI + Uvicorn).
+- [x] [AI Engine] Integrate `dashscope` Python SDK (`OmniRealtimeConversation`).
+- [x] [AI Engine] Implement `PromptManager` for dynamic System Prompt generation.
+- [x] [Debug] Fix `QWEN3_OMNI_API_KEY` environment variable issue in Docker.
+- [x] [Debug] Fix Nginx WebSocket proxy configuration (path stripping and CORS).
+- [x] [Debug] Fix DashScope SDK `send_text` and `update_session` errors.
+- [x] [Debug] Fix "off-topic response" by passing user text as instructions.
+- [x] [Debug] Correctly map DashScope response events to client protocol.
+- [x] [Stability] Implement automatic reconnection logic for DashScope.
+- [x] [Testing] Create `test_client.py` for multi-turn testing.

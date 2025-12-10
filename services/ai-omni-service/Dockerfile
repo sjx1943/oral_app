@@ -1,20 +1,22 @@
-FROM node:18-slim
+FROM python:3.10-slim
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Install curl for health check
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# Copy package files
-COPY package*.json ./
+# Install python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy node_modules from host (for local development)
-COPY node_modules ./node_modules
-
-# Copy source code
+# Copy application code
 COPY . .
 
-# Expose ports
+# Create a non-root user
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
 EXPOSE 8082
 EXPOSE 8081
 
@@ -22,4 +24,4 @@ EXPOSE 8081
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:8081/health || exit 1
 
-CMD ["node", "src/index.js"]
+CMD ["python", "app/main.py"]
